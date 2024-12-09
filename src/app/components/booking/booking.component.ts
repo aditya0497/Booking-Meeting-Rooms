@@ -19,7 +19,7 @@ export class BookingComponent implements OnChanges, OnInit {
   public closeModal = new EventEmitter<void>();
   
   @Output() 
-  public bookMeeting = new EventEmitter<any>();
+  public bookMeeting = new EventEmitter<Meeting>();
   
   @Input()
   public meetings: Meeting[] = []; 
@@ -138,7 +138,7 @@ export class BookingComponent implements OnChanges, OnInit {
     }
 
   private resetForm(): void {
-    this.currentMeet = MeetingInitialState;
+    this.currentMeet = JSON.parse(JSON.stringify(MeetingInitialState));
     this.errorMessage = '';
   }
 }

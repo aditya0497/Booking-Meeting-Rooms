@@ -9,7 +9,7 @@ import { Meeting, Room } from '../models/meeting.model';
 export class MeetingService {
 
   private apiUrl = 'http://localhost:3000/meetings'; 
-  
+
   private roomsUrl = 'http://localhost:3000/rooms';
 
   constructor(private http: HttpClient) {}
@@ -29,7 +29,7 @@ export class MeetingService {
   }
 
   // Delete a scheduled meeting
-  public deleteMeeting(meetingId: number): Observable<any> {
+  public deleteMeeting(meetingId: undefined | number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${meetingId}`);
   }
 }

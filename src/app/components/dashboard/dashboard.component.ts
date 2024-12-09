@@ -13,11 +13,11 @@ export class DashboardComponent implements OnInit {
 
   public isLoading: boolean = false;
 
-  public meetings: any[] = []; // All meetings (user-specific and all users)
+  public meetings: Meeting[] = []; // All meetings (user-specific and all users)
 
   public filteredRooms: string[] = []; // Rooms based on all meetings
 
-  public filteredMeetings: any[] = []; // Meetings filtered by room selection
+  public filteredMeetings: Meeting[] = []; // Meetings filtered by room selection
 
   public selectedRoom: string = ''; // Room selected by the user
 
@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
 
   public userMeetingRooms: string[] = []; // Rooms based on user's upcoming meetings
 
-  public filterCurrentUserMeetings: any[] = []; // Filtered user's upcoming meetings
+  public filterCurrentUserMeetings: Meeting[] = []; // Filtered user's upcoming meetings
 
   public selectedUserRoom: string = ''; // Selected room for filtering user meetings
 
@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  public deleteMeeting(meetingId: number): void {
+  public deleteMeeting(meetingId: number | undefined): void {
     this.isLoading = true;
     this.meetingService.deleteMeeting(meetingId).subscribe({
       next: () => {
@@ -96,7 +96,7 @@ export class DashboardComponent implements OnInit {
   }
 
   // Filter meetings for the current logged-in user (for the "Upcoming Meetings" section)
-  public getUserUpcomingMeetings(): any[] {
+  public getUserUpcomingMeetings(): Meeting[] {
     return this.meetings.filter(meeting => meeting.username === this.currentUser);
   }
   

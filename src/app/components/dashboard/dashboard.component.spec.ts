@@ -4,7 +4,7 @@ import { MeetingService } from '../../services/meeting.service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
-import { NO_ERRORS_SCHEMA } from '@angular/core'; // To ignore errors related to child components like <app-booking>
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('DashboardComponent', () => {
   let fixture: ComponentFixture<DashboardComponent>;
@@ -32,7 +32,7 @@ describe('DashboardComponent', () => {
         { provide: MeetingService, useValue: meetingServiceMock },
         { provide: Router, useValue: routerMock },
       ],
-      schemas: [NO_ERRORS_SCHEMA], // To ignore the errors related to child components
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
@@ -47,7 +47,9 @@ describe('DashboardComponent', () => {
   });
 
   it('should initialize meetings on ngOnInit', () => {
-    meetingServiceMock.getMeetings.and.returnValue(of([{ id: 1, agenda: 'Test Meeting' }]));
+    meetingServiceMock.getMeetings.and.returnValue(of([
+      { id: 1, username: 'testUser', room: 'Room 1', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00', agenda: 'Test Meeting' }
+    ]));
     component.ngOnInit();
     expect(component.meetings.length).toBeGreaterThan(0);
     expect(meetingServiceMock.getMeetings).toHaveBeenCalled();
@@ -65,8 +67,8 @@ describe('DashboardComponent', () => {
 
   it('should filter meetings by room when onRoomChange is called', () => {
     component.meetings = [
-      { room: 'Room 1', agenda: 'Meeting 1' },
-      { room: 'Room 2', agenda: 'Meeting 2' },
+      { room: 'Room 1', agenda: 'Meeting 1', username: 'testUser', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00' },
+      { room: 'Room 2', agenda: 'Meeting 2', username: 'testUser', date: '2024-12-10', timeFrom: '12:00', timeTo: '13:00' }
     ];
     component.selectedRoom = 'Room 1';
     component.onRoomChange();
@@ -97,20 +99,20 @@ describe('DashboardComponent', () => {
   });
 
   it('should delete a meeting successfully', () => {
-    const meetingId = 1;
-    component.meetings = [{ id: 1, agenda: 'Test Meeting' }];
+    const meetingData = { id: 1, username: 'testUser', room: 'Room 1', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00', agenda: 'Test Meeting' };
+    component.meetings = [meetingData];
     meetingServiceMock.deleteMeeting.and.returnValue(of({}));
-    component.deleteMeeting(meetingId);
-    expect(meetingServiceMock.deleteMeeting).toHaveBeenCalledWith(meetingId);
+    component.deleteMeeting(meetingData.id);
+    expect(meetingServiceMock.deleteMeeting).toHaveBeenCalledWith(meetingData.id);
     expect(component.meetings.length).toBe(0); // Meeting should be removed
   });
 
   it('should handle meeting deletion failure gracefully', () => {
-    const meetingId = 1;
-    component.meetings = [{ id: 1, agenda: 'Test Meeting' }];
+    const meetingData = { id: 1, username: 'testUser', room: 'Room 1', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00', agenda: 'Test Meeting' };
+    component.meetings = [meetingData];
     meetingServiceMock.deleteMeeting.and.returnValue(throwError('Error deleting meeting'));
     spyOn(console, 'error'); // Spy on the console error
-    component.deleteMeeting(meetingId);
+    component.deleteMeeting(meetingData.id);
     expect(console.error).toHaveBeenCalledWith('Failed to delete meeting:', 'Error deleting meeting');
   });
 
