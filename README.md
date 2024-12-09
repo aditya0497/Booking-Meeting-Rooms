@@ -6,10 +6,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
@@ -18,10 +14,15 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+Backend is up and used in the following commands: json-server --watch db.json --port 3000
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## About the application
+The dashboard consists of two tables:
+    1. The user can view the meetings that are upcoming and also a filter is available to filter based on rooms.
+    2. The user can also view the slots that are booked by all the available users in the system through the filter options available on the basis of room chosen from dropdown.
 
-## Further help
+Two API endpoints are used in the application to mimic real time application feeling:
+  http://localhost:3000/meetings
+  http://localhost:3000/rooms
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+By Default, the user will be routed to the login page. Even if user tries to by-pass the login by changing the route in the URL, it will be checked if user has logged in or not and only if the user has logged in it will allow access.
