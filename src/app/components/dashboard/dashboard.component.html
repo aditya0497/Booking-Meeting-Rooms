@@ -1,0 +1,94 @@
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h2>Book Room Meeting</h2>
+    <div>
+      {{currentUser}}
+      <button (click)="logout()" class="btn-secondary">Logout</button>
+    </div>
+  </header>
+  <div>
+    <button (click)="openModal()" class="btn-primary">Book Meeting</button>
+  </div>
+
+  <section class="meeting-section">
+    <!-- User's Upcoming Meetings -->
+    <div class="meeting-card">
+      <h3>Your Upcoming Meetings</h3>
+      <label for="user-room-filter">Filter by Room: </label>
+      <select id="user-room-filter" [(ngModel)]="selectedUserRoom" (change)="filterUserMeetings()">
+        <option value="">All Rooms</option>
+        <option *ngFor="let room of userMeetingRooms" [value]="room">{{ room }}</option>
+      </select>
+      <table>
+        <thead>
+          <tr>
+            <th>Sr No</th>
+            <th>Agenda</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Room</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let meeting of filterCurrentUserMeetings; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ meeting.agenda }}</td>
+            <td>{{ meeting.date }}</td>
+            <td>{{ meeting.timeFrom }} - {{ meeting.timeTo }}</td>
+            <td>{{ meeting.room }}</td>
+            <td>
+              <button (click)="deleteMeeting(meeting.id)" class="btn-danger">Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="filterCurrentUserMeetings.length === 0">
+            <td colspan="7">No upcoming meetings.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>       
+
+    <div class="loader" *ngIf="isLoading"></div>
+    <!-- Meetings by Room -->
+    <div class="meeting-card">
+      <h3>Rooms Meeting Details</h3>
+      <label for="room-select">Select Meeting Room: </label>
+      <select [(ngModel)]="selectedRoom" id="room-select" (change)="onRoomChange()">
+        <option *ngFor="let room of filteredRooms" [value]="room">{{ room }}</option>
+      </select>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Sr No</th>
+            <th>User Name</th>
+            <th>Agenda</th>
+            <th>Date</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let meeting of filteredMeetings; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ meeting.username }}</td>
+            <td>{{ meeting.agenda }}</td>
+            <td>{{ meeting.date }}</td>
+            <td>{{ meeting.timeFrom }} - {{ meeting.timeTo }}</td>
+          </tr>
+          <tr *ngIf="filteredMeetings.length === 0">
+            <td colspan="5">No meetings scheduled for this room.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Popup Component -->
+  <app-booking
+    [isOpen]="isModalOpen"
+    [meetings]="meetings"
+    title="Book Meeting"
+    (closeModal)="closeModal()"
+    (bookMeeting)="handleBooking($event)"
+  ></app-booking>
+</div>

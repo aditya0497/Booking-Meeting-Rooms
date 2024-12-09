@@ -1,0 +1,35 @@
+<div *ngIf="isOpen" class="modal">
+  <div class="modal-content">
+    <h2>{{ title }}</h2>
+
+    <div *ngIf="errorMessage.length > 0" class="error-message">
+      {{ errorMessage | titleCase }}
+    </div>
+    
+    <form #bookingForm="ngForm" (ngSubmit)="submit()">
+
+      <label for="username">Username</label>
+      <input type="text" [(ngModel)]="currentMeet.username" name="username" required disabled />
+
+      <label for="room">Room</label>
+      <select [(ngModel)]="currentMeet.room" name="room" required>
+        <option *ngFor="let room of rooms" [value]="room.name">{{ room.name }}</option>
+      </select>
+
+      <label for="date">Date</label>
+      <input type="date" [(ngModel)]="currentMeet.date" name="date" required />
+
+      <label for="timeFrom">Start Time</label>
+      <input type="time" [(ngModel)]="currentMeet.timeFrom" name="timeFrom" required />
+
+      <label for="timeTo">End Time</label>
+      <input type="time" [(ngModel)]="currentMeet.timeTo" name="timeTo" required />
+
+      <label for="agenda">Agenda</label>
+      <textarea [(ngModel)]="currentMeet.agenda" name="agenda" required></textarea>
+
+      <button type="submit">Book</button>
+    </form>
+    <button (click)="close()">Close</button>
+  </div>
+</div>
