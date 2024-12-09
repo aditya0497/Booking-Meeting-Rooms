@@ -22,7 +22,12 @@ export class LoginComponent {
       this.errorMessage = 'Username is required.';
       return;
     }
-
+  
+    if (this.password === '') {
+      this.errorMessage = 'Password is required.';
+      return;
+    }
+  
     // Call AuthService to log in the user
     this.authService.login(this.username).subscribe(
       (success) => {
@@ -39,5 +44,5 @@ export class LoginComponent {
         this.errorMessage = 'An error occurred. Please try again later.';
       }
     );
-  }
+  }  
 }

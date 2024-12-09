@@ -17,6 +17,7 @@
   width: 450px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   text-align: left;
+  max-width: 100%;
 }
 
 .modal-content h2 {
@@ -38,10 +39,16 @@ label {
 
 input, select, textarea {
   width: 100%;
+  max-width: 100%;
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box; /* Ensures padding does not cause overflow */
+}
+
+input[type="text"], input[type="date"], input[type="time"], select, textarea {
+  width: 100%; /* Ensure elements take full width of the container */
 }
 
 button {
@@ -52,6 +59,11 @@ button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width: 100%; 
+}
+
+button:hover {
+  background-color: #0056b3;
 }
 
 .close-button {
@@ -64,5 +76,3 @@ button {
   font-weight: bold;
   margin-top: 10px;
 }
-
-
