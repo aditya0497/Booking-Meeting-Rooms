@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const filePath = path.resolve('/tmp/db.json');
+const filePath = path.resolve('./db.json');
 
 const readData = () => {
   return new Promise((resolve, reject) => {
