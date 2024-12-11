@@ -1,0 +1,31 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "api/**/*.js",  
+        "use": "@vercel/node"  
+      },
+      {
+        "src": "public/**/*",  
+        "use": "@vercel/static"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/meetings",
+        "dest": "/api/meetings.js"  
+      },
+      {
+        "src": "/api/rooms",
+        "dest": "/api/rooms.js" 
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/public/$1"  
+      }
+    ],
+    "env": {
+      "NODE_ENV": "production"  
+    }
+  }
+  
