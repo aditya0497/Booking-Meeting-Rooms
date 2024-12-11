@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Meeting, Room } from '../models/meeting.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MeetingService {
 
-  private apiUrl = 'http://localhost:3000/meetings'; 
+  private apiUrl = `${environment.apiUrl}/meetings`;
 
-  private roomsUrl = 'http://localhost:3000/rooms';
+  private roomsUrl = `${environment.apiUrl}/rooms`;
 
   constructor(private http: HttpClient) {}
 

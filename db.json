@@ -1,100 +1,100 @@
 {
-  "meetings": [
-    {
-      "id": "4",
-      "username": "user3",
-      "agenda": "Client meeting: product feedback and next steps",
-      "date": "2024-12-10",
-      "timeFrom": "09:00",
-      "timeTo": "10:00",
-      "room": "Meeting Room 4"
-    },
-    {
-      "id": "6",
-      "username": "user3",
-      "agenda": "Discuss partnership opportunities with XYZ Corp.",
-      "date": "2024-12-12",
-      "timeFrom": "15:00",
-      "timeTo": "16:30",
-      "room": "Meeting Room 6"
-    },
-    {
-      "id": "10",
-      "username": "user3",
-      "agenda": "Internal team meeting: Project status update",
-      "date": "2024-12-14",
-      "timeFrom": "13:00",
-      "timeTo": "14:00",
-      "room": "Meeting Room 10"
-    },
-    {
-      "id": "58d3",
-      "username": "user1",
-      "room": "Meeting Room 4",
-      "date": "2024-12-10",
-      "timeFrom": "13:29",
-      "timeTo": "15:29",
-      "agenda": "s"
-    },
-    {
-      "id": "f5eb",
-      "username": "user3",
-      "room": "Meeting Room 2",
-      "date": "2024-12-11",
-      "timeFrom": "10:32",
-      "timeTo": "11:35",
-      "agenda": "q"
-    },
-    {
-      "id": "ea64",
-      "username": "user3",
-      "room": "Meeting Room 2",
-      "date": "2025-01-01",
-      "timeFrom": "10:40",
-      "timeTo": "12:40",
-      "agenda": "q"
-    }
-  ],
-  "rooms": [
-    {
-      "id": "1",
-      "name": "Meeting Room 1"
-    },
-    {
-      "id": "2",
-      "name": "Meeting Room 2"
-    },
-    {
-      "id": "3",
-      "name": "Meeting Room 3"
-    },
-    {
-      "id": "4",
-      "name": "Meeting Room 4"
-    },
-    {
-      "id": "5",
-      "name": "Meeting Room 5"
-    },
-    {
-      "id": "6",
-      "name": "Meeting Room 6"
-    },
-    {
-      "id": "7",
-      "name": "Meeting Room 7"
-    },
-    {
-      "id": "8",
-      "name": "Meeting Room 8"
-    },
-    {
-      "id": "9",
-      "name": "Meeting Room 9"
-    },
-    {
-      "id": "10",
-      "name": "Meeting Room 10"
-    }
-  ]
-}
+    "meetings": [
+      {
+        "id": "4",
+        "username": "user3",
+        "agenda": "Client meeting: product feedback and next steps",
+        "date": "2024-12-10",
+        "timeFrom": "09:00",
+        "timeTo": "10:00",
+        "room": "Meeting Room 4"
+      },
+      {
+        "id": "6",
+        "username": "user3",
+        "agenda": "Discuss partnership opportunities with XYZ Corp.",
+        "date": "2024-12-12",
+        "timeFrom": "15:00",
+        "timeTo": "16:30",
+        "room": "Meeting Room 6"
+      },
+      {
+        "id": "10",
+        "username": "user3",
+        "agenda": "Internal team meeting: Project status update",
+        "date": "2024-12-14",
+        "timeFrom": "13:00",
+        "timeTo": "14:00",
+        "room": "Meeting Room 10"
+      },
+      {
+        "id": "f5eb",
+        "username": "user3",
+        "room": "Meeting Room 2",
+        "date": "2024-12-11",
+        "timeFrom": "10:32",
+        "timeTo": "11:35",
+        "agenda": "q"
+      },
+      {
+        "id": "ea64",
+        "username": "user3",
+        "room": "Meeting Room 2",
+        "date": "2025-01-01",
+        "timeFrom": "10:40",
+        "timeTo": "12:40",
+        "agenda": "q"
+      },
+      {
+        "id": "c4e7",
+        "username": "user1",
+        "room": "Meeting Room 5",
+        "date": "2024-12-10",
+        "timeFrom": "10:45",
+        "timeTo": "11:45",
+        "agenda": "Partnership terms and agreement"
+      }
+    ],
+    "rooms": [
+      {
+        "id": "1",
+        "name": "Meeting Room 1"
+      },
+      {
+        "id": "2",
+        "name": "Meeting Room 2"
+      },
+      {
+        "id": "3",
+        "name": "Meeting Room 3"
+      },
+      {
+        "id": "4",
+        "name": "Meeting Room 4"
+      },
+      {
+        "id": "5",
+        "name": "Meeting Room 5"
+      },
+      {
+        "id": "6",
+        "name": "Meeting Room 6"
+      },
+      {
+        "id": "7",
+        "name": "Meeting Room 7"
+      },
+      {
+        "id": "8",
+        "name": "Meeting Room 8"
+      },
+      {
+        "id": "9",
+        "name": "Meeting Room 9"
+      },
+      {
+        "id": "10",
+        "name": "Meeting Room 10"
+      }
+    ]
+  }
