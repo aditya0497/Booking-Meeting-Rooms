@@ -38,7 +38,7 @@
             <td>{{ meeting.timeFrom }} - {{ meeting.timeTo }}</td>
             <td>{{ meeting.room }}</td>
             <td>
-              <button (click)="deleteMeeting(meeting.id)" class="btn-danger">Delete</button>
+              <button (click)="deleteMeeting(meeting.meetingId)" class="btn-danger">Delete</button>
             </td>
           </tr>
           <tr *ngIf="filterCurrentUserMeetings.length === 0">

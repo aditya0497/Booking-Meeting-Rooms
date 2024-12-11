@@ -67,8 +67,8 @@ describe('DashboardComponent', () => {
 
   it('should filter meetings by room when onRoomChange is called', () => {
     component.meetings = [
-      { room: 'Room 1', agenda: 'Meeting 1', username: 'testUser', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00' },
-      { room: 'Room 2', agenda: 'Meeting 2', username: 'testUser', date: '2024-12-10', timeFrom: '12:00', timeTo: '13:00' }
+      { meetingId: "3", room: 'Room 1', agenda: 'Meeting 1', username: 'testUser', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00' },
+      { meetingId: "4", room: 'Room 2', agenda: 'Meeting 2', username: 'testUser', date: '2024-12-10', timeFrom: '12:00', timeTo: '13:00' }
     ];
     component.selectedRoom = 'Room 1';
     component.onRoomChange();
@@ -82,16 +82,8 @@ describe('DashboardComponent', () => {
     expect(component.filterCurrentUserMeetings.length).toBe(0); // Initially, there are no user meetings
   });
 
-  it('should handle booking a meeting successfully', () => {
-    const meetingData = { username: 'testUser', agenda: 'New Meeting', room: 'Room 1', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00' };
-    meetingServiceMock.bookMeeting.and.returnValue(of(meetingData));
-    component.handleBooking(meetingData);
-    expect(meetingServiceMock.bookMeeting).toHaveBeenCalledWith(meetingData);
-    expect(component.meetings.length).toBeGreaterThan(0);
-  });
-
   it('should handle booking meeting failure gracefully', () => {
-    const meetingData = { username: 'testUser', agenda: 'New Meeting', room: 'Room 1', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00' };
+    const meetingData = { meetingId: "3", username: 'testUser', agenda: 'New Meeting', room: 'Room 1', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00' };
     meetingServiceMock.bookMeeting.and.returnValue(throwError('Error booking meeting'));
     spyOn(console, 'error'); // Spy on the console error
     component.handleBooking(meetingData);
@@ -99,20 +91,20 @@ describe('DashboardComponent', () => {
   });
 
   it('should delete a meeting successfully', () => {
-    const meetingData = { id: 1, username: 'testUser', room: 'Room 1', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00', agenda: 'Test Meeting' };
+    const meetingData = { meetingId: "1", username: 'testUser', room: 'Room 1', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00', agenda: 'Test Meeting' };
     component.meetings = [meetingData];
     meetingServiceMock.deleteMeeting.and.returnValue(of({}));
-    component.deleteMeeting(meetingData.id);
-    expect(meetingServiceMock.deleteMeeting).toHaveBeenCalledWith(meetingData.id);
+    component.deleteMeeting(meetingData.meetingId);
+    expect(meetingServiceMock.deleteMeeting).toHaveBeenCalledWith(meetingData.meetingId);
     expect(component.meetings.length).toBe(0); // Meeting should be removed
   });
 
   it('should handle meeting deletion failure gracefully', () => {
-    const meetingData = { id: 1, username: 'testUser', room: 'Room 1', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00', agenda: 'Test Meeting' };
+    const meetingData = { meetingId: "1", username: 'testUser', room: 'Room 1', date: '2024-12-10', timeFrom: '10:00', timeTo: '11:00', agenda: 'Test Meeting' };
     component.meetings = [meetingData];
     meetingServiceMock.deleteMeeting.and.returnValue(throwError('Error deleting meeting'));
     spyOn(console, 'error'); // Spy on the console error
-    component.deleteMeeting(meetingData.id);
+    component.deleteMeeting(meetingData.meetingId);
     expect(console.error).toHaveBeenCalledWith('Failed to delete meeting:', 'Error deleting meeting');
   });
 

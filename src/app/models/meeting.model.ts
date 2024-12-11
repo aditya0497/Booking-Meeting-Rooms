@@ -1,5 +1,5 @@
 export interface Meeting {
-    id?: number;
+    meetingId: string;
     username: string;
     room: string;
     date: string;
@@ -14,6 +14,7 @@ export interface Meeting {
   }
 
   export const MeetingInitialState = {
+    meetingId: '',
     username: '',
     room: '',
     date: '',

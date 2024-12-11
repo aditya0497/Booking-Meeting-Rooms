@@ -56,6 +56,7 @@ export class BookingComponent implements OnChanges, OnInit {
   public submit(): void {
     if (this.validateInputs()) {      
       const meetingData = {
+        meetingId: this.currentMeet.meetingId,
         username: this.currentMeet.username,
         room: this.currentMeet.room,
         date: this.currentMeet.date,

@@ -30,7 +30,7 @@ export class MeetingService {
   }
 
   // Delete a scheduled meeting
-  public deleteMeeting(meetingId: undefined | number): Observable<any> {
+  public deleteMeeting(meetingId: undefined | string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${meetingId}`);
   }
 }

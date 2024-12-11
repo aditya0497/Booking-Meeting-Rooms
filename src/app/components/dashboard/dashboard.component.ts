@@ -57,7 +57,11 @@ export class DashboardComponent implements OnInit {
   }
 
   public handleBooking(meetingData: Meeting): void {
-    this.meetingService.bookMeeting(meetingData).subscribe({
+    const updatedData = {
+      ...meetingData,
+      id: Math.random().toString()
+    }
+    this.meetingService.bookMeeting(updatedData).subscribe({
       next: (newMeeting) => {
         this.meetings.push(newMeeting);
         this.loadAllMeetings();
@@ -74,12 +78,12 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  public deleteMeeting(meetingId: number | undefined): void {
+  public deleteMeeting(meetingId: string | undefined): void {
     this.isLoading = true;
     this.meetingService.deleteMeeting(meetingId).subscribe({
       next: () => {
         // Remove the meeting from the main array
-        this.meetings = this.meetings.filter((meeting) => meeting.id !== meetingId);
+        this.meetings = this.meetings.filter((meeting) => meeting.meetingId !== meetingId);
         
         // Update filtered lists immediately
         this.filterUserMeetings(); // Update user's filtered meetings

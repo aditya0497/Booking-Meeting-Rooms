@@ -34,6 +34,7 @@ describe('BookingComponent', () => {
 
   it('should reset form values when modal is opened', () => {
     component.currentMeet = {
+      meetingId: "4",
       username: 'user1',
       room: 'Room 1',
       date: '2024-12-10',
@@ -64,6 +65,7 @@ describe('BookingComponent', () => {
 
   it('should validate inputs and return true for valid data', () => {
     component.currentMeet = {
+      meetingId: "1",
       username: 'user1',
       room: 'Room 1',
       date: '2024-12-10',
@@ -79,6 +81,7 @@ describe('BookingComponent', () => {
   it('should emit booking data on valid submit', () => {
     spyOn(component.bookMeeting, 'emit');
     component.currentMeet = {
+      meetingId: "2",
       username: 'user1',
       room: 'Room 1',
       date: '2024-12-10',
@@ -92,6 +95,7 @@ describe('BookingComponent', () => {
 
   it('should set error message for invalid meeting times', () => {
     component.currentMeet = {
+      meetingId: "3",
       username: 'user1',
       room: 'Room 1',
       date: '2024-12-10',
