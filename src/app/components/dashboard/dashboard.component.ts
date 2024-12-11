@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit {
   public handleBooking(meetingData: Meeting): void {
     const updatedData = {
       ...meetingData,
-      id: Math.random().toString()
+      meetingId: Math.random().toString()
     }
     this.meetingService.bookMeeting(updatedData).subscribe({
       next: (newMeeting) => {
