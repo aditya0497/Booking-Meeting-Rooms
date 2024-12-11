@@ -1,79 +1,52 @@
-const admin = require('firebase-admin');
+const fs = require('fs');
+const path = require('path');
 
-// Initialize Firebase Admin SDK with the service account
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-    project_id: process.env.FIREBASE_PROJECT_ID,
-    private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-    client_email: process.env.FIREBASE_CLIENT_EMAIL,
-  }),
-});
-}
+const filePath = path.resolve('./db.json');
 
-const db = admin.firestore();
+const readData = () => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        reject('Failed to read data');
+      }
+      resolve(JSON.parse(data));
+    });
+  });
+};
 
-module.exports = async (req, res) => {
+const writeData = (data) => {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8', (err) => {
+      if (err) {
+        reject('Failed to write data');
+      }
+      resolve();
+    });
+  });
+};
+
+module.exports = async function handler(req, res) {
+  const { method } = req;
+
   try {
-    const meetingsCollection = db.collection('meetings');
+    const db = await readData();
 
-    switch (req.method) {
-      case 'GET': {
-        // Fetch all meetings
-        const snapshot = await meetingsCollection.get();
-        if (snapshot.empty) {
-          return res.status(200).json([]);
-        }
-
-        const meetings = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        return res.status(200).json(meetings);
-      }
-
-      case 'POST': {
-        // Add a new meeting
-        const meetingData = req.body;
-        if (!meetingData || Object.keys(meetingData).length === 0) {
-          return res.status(400).json({ error: 'Invalid meeting data' });
-        }
-
-        const newMeetingRef = await meetingsCollection.add(meetingData);
-        return res.status(201).json({ id: newMeetingRef.id, ...meetingData });
-      }
-
-      case 'PUT': {
-        // Update an existing meeting
-        const { id, ...updateData } = req.body;
-        if (!id || Object.keys(updateData).length === 0) {
-          return res.status(400).json({ error: 'Invalid update data or missing ID' });
-        }
-
-        const meetingRef = meetingsCollection.doc(id);
-        await meetingRef.update(updateData);
-        return res.status(200).json({ id, ...updateData });
-      }
-
-      case 'DELETE': {
-        // Delete a meeting
-        const { id } = req.body;
-        if (!id) {
-          return res.status(400).json({ error: 'Missing meeting ID' });
-        }
-
-        const meetingRef = meetingsCollection.doc(id);
-        await meetingRef.delete();
-        return res.status(200).json({ success: true, id });
-      }
-
-      default: {
-        // Unsupported HTTP method
-        return res.status(405).json({ error: 'Method not allowed' });
-      }
+    if (method === 'GET') {
+      res.status(200).json(db.meetings);
+    } else if (method === 'POST') {
+      const newMeeting = req.body;
+      db.meetings.push(newMeeting);
+      await writeData(db);
+      res.status(201).json(newMeeting);
+    } else if (method === 'DELETE') {
+      const meetingId = parseInt(req.query.id, 10);
+      db.meetings = db.meetings.filter((meeting) => meeting.id !== meetingId);
+      await writeData(db);
+      res.status(200).json({ message: 'Meeting deleted successfully' });
+    } else {
+      res.status(405).json({ message: 'Method Not Allowed' });
     }
-  } catch (err) {
-    console.error('Error processing request:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };

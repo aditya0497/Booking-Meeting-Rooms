@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' }, // Default route
+  { path: '**', redirectTo: '/login' } // Wildcard route for undefined paths
 ];
 
 @NgModule({

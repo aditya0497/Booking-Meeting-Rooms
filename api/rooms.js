@@ -1,31 +1,32 @@
-const admin = require('firebase-admin');
+const fs = require('fs');
+const path = require('path');
 
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert({
-    project_id: process.env.FIREBASE_PROJECT_ID,
-    private_key: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-    client_email: process.env.FIREBASE_CLIENT_EMAIL,
-  }),
-});
-}
+const filePath = path.resolve('./db.json');
 
-const db = admin.firestore(); 
-
-module.exports = async (req, res) => {
-  try {
-    
-    const snapshot = await db.collection('rooms').get();
-    
-    if (snapshot.empty) {
-      return res.status(200).json([]);
-    }
-
-    const rooms = snapshot.docs.map(doc => doc.data()); 
-
-    res.status(200).json(rooms);
-  } catch (err) {
-    console.error('Error fetching rooms:', err);
-    res.status(500).json({ error: 'Unable to fetch data from Firestore' });
-  }
+const readData = () => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+        reject('Failed to read mock data');
+      }
+      resolve(JSON.parse(data));
+    });
+  });
 };
+
+module.exports = async function handler(req, res) {
+  const { method } = req;
+
+  try {
+    const db = await readData();
+
+    if (method === 'GET') {
+      // Return all rooms
+      res.status(200).json(db.rooms);
+    } else {
+      res.status(405).json({ message: 'Method Not Allowed' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
