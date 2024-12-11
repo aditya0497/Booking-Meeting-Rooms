@@ -1,9 +1,9 @@
 const axios = require('axios');
 
 // Airtable API setup
-const AIRTABLE_API_URL = 'https://api.airtable.com/v0';
-const AIRTABLE_BASE_ID = "appS7jaWw1Sg2Or0r"  // Ensure to set this in your .env file
-const AIRTABLE_PERSONAL_ACCESS_TOKEN = "patYX75s1NFVkuInZ.10299e6d713d032637142c2c0e5baee36ec5f4f0b1abf7757e60b80b37f36795"; // Ensure to set this in your .env file
+const AIRTABLE_API_URL = process.env.AIRTABLE_API_URL;
+const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;  
+const AIRTABLE_PERSONAL_ACCESS_TOKEN = process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN;
 
 // Function to fetch rooms from Airtable
 async function fetchRooms() {
