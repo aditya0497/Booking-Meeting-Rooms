@@ -1,19 +1,12 @@
-const axios = require('axios');
+const { createClient } = require('@supabase/supabase-js');
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-// Airtable API setup
-const AIRTABLE_API_URL = process.env.AIRTABLE_API_URL;
-const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;  
-const AIRTABLE_PERSONAL_ACCESS_TOKEN = process.env.AIRTABLE_PERSONAL_ACCESS_TOKEN;
-
-// Function to fetch rooms from Airtable
+// Function to fetch rooms
 async function fetchRooms() {
   try {
-    const response = await axios.get(`${AIRTABLE_API_URL}/${AIRTABLE_BASE_ID}/rooms`, {
-      headers: {
-        Authorization: `Bearer ${AIRTABLE_PERSONAL_ACCESS_TOKEN}`,
-      },
-    });
-    return response.data.records.map(record => record.fields);
+    const { data, error } = await supabase.from('rooms').select();
+    if (error) throw error;
+    return data;
   } catch (error) {
     console.error('Error fetching rooms:', error);
     throw new Error('Failed to fetch rooms');
@@ -25,7 +18,7 @@ module.exports = async function handler(req, res) {
 
   try {
     if (method === 'GET') {
-      // Fetch rooms from Airtable
+      // Fetch rooms from Supabase
       const rooms = await fetchRooms();
       res.status(200).json(rooms);
     } else {
