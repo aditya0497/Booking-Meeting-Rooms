@@ -1,7 +1,7 @@
 {
     "meetings": [
         {
-            "id": "6",
+            "meetingId": "6",
             "username": "user3",
             "agenda": "Discuss partnership opportunities with XYZ Corp.",
             "date": "2024-12-12",
@@ -10,7 +10,7 @@
             "room": "Meeting Room 6"
         },
         {
-            "id": "10",
+            "meetingId": "10",
             "username": "user3",
             "agenda": "Internal team meeting: Project status update",
             "date": "2024-12-14",
@@ -19,7 +19,7 @@
             "room": "Meeting Room 10"
         },
         {
-            "id": "ea64",
+            "meetingId": "ea64",
             "username": "user3",
             "room": "Meeting Room 2",
             "date": "2025-01-01",
@@ -28,7 +28,7 @@
             "agenda": "q"
         },
         {
-            "id": "c4e7",
+            "meetingId": "c4e7",
             "username": "user1",
             "room": "Meeting Room 5",
             "date": "2024-12-10",
