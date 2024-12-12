@@ -26,3 +26,5 @@ Two API endpoints are used in the application to mimic real time application fee
   http://localhost:3000/rooms
 
 By Default, the user will be routed to the login page. Even if user tries to by-pass the login by changing the route in the URL, it will be checked if user has logged in or not and only if the user has logged in it will allow access.
+
+For real-time, deployments is done on vercel and connected to a database using supabase.
